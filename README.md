@@ -4,8 +4,7 @@
 
 A web-based chat client for connecting to classic Battle.net / PvPGN emulation servers using the text-based chat protocol (0x03).
 
-![Screenshot Placeholder](placeholder.png)
-*(Replace placeholder.png with an actual screenshot of the chat interface)*
+![Screenshot Placeholder](placeholder.png)*
 
 ## Features
 
@@ -35,8 +34,35 @@ This application consists of three main parts:
     *   Forwards relevant information (status updates, parsed messages, user lists) back to the correct browser client via WSS.
 3.  **PvPGN Server (External):** The actual Battle.net emulation server (e.g., `pvpgn.tahkaka.xyz`) that the Node.js backend connects to via **plain TCP** on port 6112 (or as specified by the user).
 
-+-----------------------+ +-------------------------+ | User's Browser | HTTPS/WSS | PvPGN Server (External) | | (Frontend JS) | (Encrypted) | (TCP Port 6112) | | |<------------>| | +-----------------------+ +------------^------------+ | | | | TCP (Unencrypted) | | PvPGN Protocol 0x03 +--------------------->-------------------+ | | +----------v------------+ | | Your Node.js Server |----------+ | (Backend Logic) | | (HTTPS/WSS Server) | | (TCP Client for PvPGN)| +-----------------------+
-text
++-----------------------+              +-------------------------+
+|      User Clients     |              | External PvPGN Server   |
+|                       |              |      (TCP Server)       |
+| +-------------------+ |              +------------^------------+
+| |    Web Browser    | |                           |
+| +--------^----------+ |                           |
+|          |            |                           | Connection 2
+|          | (HTTPS/WSS)|                           | (TCP port 6112)
+|          |            |                           | (Unencrypted)
+| +--------v----------+ |<--------------------------+ (PvPGN Protocol 0x03)
+| |    Native App     | |                           |
+| | (iOS/Android/etc) | |                           |
+| +--------^----------+ |                           |
+|          |            |                           |
+|          | (WSS)      |                           |
++----------|------------+                           |
+           |                                        |
+           | Connection 1                           |
+           | (Encrypted)                            |
+           | (API via Secure WebSocket)             |
+           |                                        |
++----------v------------+                           |
+|                       |                           |
+| Your Node.js Server   |---------------------------+
+| (HTTPS/WSS Server)    |
+| (TCP Client for PvPGN)|
+|                       |
++-----------------------+
+
 
 
 ## Tech Stack
