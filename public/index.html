@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PvPGN Web Chat</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>PvPGN Web Chat</h1>
+            <div id="status-indicator" class="status status-disconnected">
+                Status: <span id="status-text">Disconnected</span>
+                <span id="status-message"></span>
+            </div>
+        </header>
+
+        <div id="login-view" class="view">
+            <h2>Login</h2>
+            <form id="login-form">
+                <!-- CAMPOS ADICIONADOS PARA HOST E PORTA -->
+                <div class="form-group">
+                    <label for="server-host">Server Host/IP:</label>
+                    <input type="text" id="server-host" value="localhost" required>
+                </div>
+                <div class="form-group">
+                    <label for="server-port">Server Port:</label>
+                    <input type="number" id="server-port" value="6112" min="1" max="65535" required>
+                </div>
+                 <!-- FIM DOS CAMPOS ADICIONADOS -->
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" required>
+                </div>
+                <!-- Removido o span #server-info, pois agora é input -->
+                <button type="submit">Login</button>
+                <div id="login-error" class="error-message"></div>
+            </form>
+        </div>
+
+        <div id="chat-view" class="view hidden">
+            <aside id="sidebar">
+                <h2>Users</h2>
+                <ul id="user-list">
+                    <!-- Usuários serão adicionados aqui pelo JS -->
+                </ul>
+            </aside>
+            <main id="chat-area">
+                <div id="messages">
+                    <!-- Mensagens serão adicionadas aqui -->
+                </div>
+                <form id="message-form">
+                    <input type="text" id="message-input" placeholder="Enter message or /command..." autocomplete="off" required>
+                    <button type="submit">Send</button>
+                </form>
+                 <button id="disconnect-button">Disconnect</button>
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

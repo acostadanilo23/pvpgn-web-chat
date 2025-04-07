@@ -1,0 +1,256 @@
+/* public/style.css */
+body {
+    font-family: sans-serif;
+    margin: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 1000px; /* Aumentado para acomodar sidebar */
+    overflow: hidden; /* Para conter floats ou flex items */
+    display: flex;
+    flex-direction: column;
+    height: 80vh; /* Altura definida para a caixa principal */
+}
+
+header {
+    background-color: #4a4a4a;
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+    position: relative; /* Para posicionar o status */
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+#status-indicator {
+    font-size: 0.9em;
+    margin-top: 5px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    display: inline-block; /* Para aplicar padding corretamente */
+}
+
+#status-indicator.status-disconnected { background-color: #dc3545; color: white; }
+#status-indicator.status-connecting { background-color: #ffc107; color: black; }
+#status-indicator.status-authenticating { background-color: #0dcaf0; color: black; }
+#status-indicator.status-connected { background-color: #198754; color: white; }
+#status-indicator.status-error { background-color: #dc3545; color: white; }
+
+#status-message {
+    margin-left: 10px;
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+.view {
+    padding: 20px;
+    flex-grow: 1; /* Ocupa o espaço restante */
+    display: flex; /* Usar flex para layout interno */
+    flex-direction: column; /* Login view é coluna */
+}
+
+.view.hidden {
+    display: none;
+}
+
+/* --- Login View --- */
+#login-view {
+    align-items: center; /* Centraliza o formulário */
+}
+
+#login-form {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    max-width: 400px;
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"] {
+    width: calc(100% - 20px); /* Desconta padding */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#login-form button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    width: 100%;
+}
+
+#login-form button:hover {
+    background-color: #0056b3;
+}
+
+.error-message {
+    color: #dc3545;
+    margin-top: 10px;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+
+/* --- Chat View --- */
+#chat-view {
+    flex-direction: row; /* Chat view é linha (sidebar + main) */
+    padding: 0; /* Remove padding para que filhos ocupem tudo */
+    overflow: hidden; /* Evita que filhos estourem */
+}
+
+#sidebar {
+    width: 200px; /* Largura fixa para a lista de usuários */
+    background-color: #e9ecef;
+    padding: 15px;
+    border-right: 1px solid #ddd;
+    overflow-y: auto; /* Scroll se a lista for grande */
+    display: flex;
+    flex-direction: column;
+}
+
+#sidebar h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    color: #333;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
+
+#user-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1; /* Ocupa espaço restante na sidebar */
+    overflow-y: auto; /* Scroll interno se necessário */
+}
+
+#user-list li {
+    padding: 5px 0;
+    font-size: 0.95em;
+    color: #555;
+    border-bottom: 1px dashed #eee; /* Separador leve */
+    word-break: break-all; /* Quebra nomes longos */
+}
+#user-list li:last-child {
+    border-bottom: none;
+}
+
+
+#chat-area {
+    flex-grow: 1; /* Ocupa o restante da largura */
+    display: flex;
+    flex-direction: column; /* Área principal é coluna (mensagens + input) */
+    background-color: #fff;
+    overflow: hidden; /* Para conter o scroll das mensagens */
+}
+
+#messages {
+    flex-grow: 1; /* Ocupa o espaço vertical disponível */
+    overflow-y: auto; /* Scroll para mensagens */
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.message {
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    border-radius: 5px;
+    max-width: 80%; /* Limita largura da mensagem */
+    word-wrap: break-word; /* Quebra palavras longas */
+}
+
+.message.type-TALK { background-color: #f1f1f1; }
+.message.type-WHISPER { background-color: #e2d8ff; font-style: italic; }
+.message.type-WHISPER_TO { background-color: #d8eaff; font-style: italic; }
+.message.type-INFO { background-color: #d1ecf1; color: #0c5460; }
+.message.type-ERROR { background-color: #f8d7da; color: #721c24; }
+.message.type-JOIN, .message.type-LEAVE, .message.type-CHANNEL {
+    background-color: #e9ecef;
+    color: #495057;
+    text-align: center;
+    font-style: italic;
+    font-size: 0.9em;
+    max-width: 100%;
+}
+.message.type-RAW, .message.type-UNHANDLED, .message.type-PARSE_ERROR {
+    background-color: #fff3cd;
+    color: #856404;
+    font-family: monospace;
+    font-size: 0.85em;
+}
+
+.message .user { font-weight: bold; margin-right: 5px; }
+.message .content { }
+
+
+#message-form {
+    display: flex;
+    padding: 10px;
+    background-color: #f8f9fa;
+}
+
+#message-input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+    margin-right: -1px; /* Junta com o botão */
+}
+
+#message-form button {
+    padding: 10px 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+}
+
+#message-form button:hover {
+    background-color: #218838;
+}
+
+#disconnect-button {
+    margin: 10px; /* Espaçamento */
+    padding: 8px 12px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    align-self: flex-start; /* Alinha no canto */
+}
+#disconnect-button:hover {
+    background-color: #5a6268;
+}
